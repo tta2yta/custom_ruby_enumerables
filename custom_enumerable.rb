@@ -12,7 +12,7 @@ module Enumerable
     end
   end
 
-# custom enumerable method that resembles buit-in each_with_index enumerable
+  # custom enumerable method that resembles buit-in each_with_index enumerable
   def my_each_with_index
     if block_given?
       i = 0
@@ -31,3 +31,7 @@ str = %w[a b c d]
 # calling my_each enumerable
 num.my_each { |x| puts "x=#{x}" }
 str.my_each { |y| puts "y=#{y}" }
+
+# calling my_each_with_index enumerable
+num.my_each_with_index { |index, item| puts "index=#{index}, item=#{item}" }
+str.my_each_with_index { |index, item| puts "index=#{index}, item=#{item}" }
