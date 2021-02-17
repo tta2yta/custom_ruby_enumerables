@@ -24,6 +24,10 @@ module Enumerable
       yield self
     end
   end
+
+  def my_select
+  
+  end
 end
 num = [1, 2, 3, 4, 5]
 str = %w[a b c d]
