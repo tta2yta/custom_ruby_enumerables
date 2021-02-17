@@ -12,7 +12,17 @@ module Enumerable
     end
   end
 
+# custom enumerable method that resembles buit-in each_with_index enumerable
   def my_each_with_index
+    if block_given?
+      i = 0
+      while i < size
+        yield i, self[i]
+        i += 1
+      end
+    else
+      yield self
+    end
   end
 end
 num = [1, 2, 3, 4, 5]
