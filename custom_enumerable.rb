@@ -1,4 +1,5 @@
 module Enumerable
+    # custom enumerable method that resembles buit-in my_each enumerable
     def my_each
         if block_given?
             i=0
@@ -11,3 +12,9 @@ module Enumerable
         end
     end
 end
+
+num=[1,2,3,4,5]
+str=['a','b','c','d']
+
+#calling my_each enumerable
+num.my_each{|x| puts "x=#{x}"}
