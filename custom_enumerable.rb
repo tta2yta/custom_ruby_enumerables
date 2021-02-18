@@ -58,6 +58,9 @@ module Enumerable
     end
     res
   end
+
+  def my_none(*args, &block)
+  end
 end
 num = [5, 7, 3, 4, 5]
 str = %w[a b c d]
@@ -73,8 +76,9 @@ str.my_each_with_index { |index, item| puts "index=#{index}, item=#{item}" }
 # calling my_select enumerable
 p(num.my_select { |x| x > 3 })
 
+
 # calling my_all enumerable
-p(%w[ant bear cat].my_all? { |word| word.length >= 3 }) #=> true
+p(%w{ant bear cat}.my_all? { |word| word.length >= 3 }) #=> true
 p(%w[ant bear cat].my_all? { |word| word.length >= 4 }) #=> false
 p(%w[ant bear cat].my_all?(/t/)) #=> false
 p([1, 2i, 3.14].my_all?(Numeric)) #=> true
