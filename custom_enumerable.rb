@@ -59,6 +59,7 @@ module Enumerable
     res
   end
 
+    # custom enumerable method that resembles built-in none enumerable
   def my_none?(*args, &block)
     res = true
     return true if empty?
@@ -82,6 +83,9 @@ module Enumerable
     end
     res
   end
+      # custom enumerable method that resembles built-in any enumerable
+      def my_any?(*args, &block)
+      end
 end
 num = [5, 7, 3, 4, 5]
 str = %w[a b c d]
