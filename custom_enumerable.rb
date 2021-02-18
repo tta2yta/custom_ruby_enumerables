@@ -85,6 +85,22 @@ module Enumerable
   end
       # custom enumerable method that resembles built-in any enumerable
       def my_any?(*args, &block)
+        res = false
+        return false if empty?
+    
+        if args.empty?
+          my_each do |elem|
+              if block.call(elem) == true
+                res = true
+                break
+              end
+          end
+        elsif args[0].is_a?(Regexp)
+          my_each { |value| return true if value.match?(args[0]) }
+        elsif args[0].is_a?(Module)
+          my_each { |value| return true if value.is_a?(args[0]) }
+        end
+        res
       end
 end
 num = [5, 7, 3, 4, 5]
@@ -119,3 +135,8 @@ p([].none?) #=> true
 p([nil].none?) #=> true
 p([nil, false].none?) #=> true
 p([nil, false, true].none?) #=> false
+
+# calling my_any enumerable
+puts 'my_none'
+p(%w[ant bear cat].any? { |word| word.length >= 3 }) #=> true
+p(%w[ant bear cat].any? { |word| word.length >= 4 })#=> true
