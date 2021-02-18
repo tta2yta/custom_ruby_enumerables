@@ -110,6 +110,13 @@ module Enumerable
     my_each { |value| ctr += 1 if yield(value) }
     ctr
   end
+
+   # custom enumerable method that resembles built-in map enumerable
+   def my_map()
+    res=[]
+    my_each { |value| res << yield(value)}
+    res
+   end
 end
 num = [5, 7, 3, 4, 5]
 str = %w[a b c d]
@@ -159,3 +166,7 @@ ary = [1, 2, 4, 2]
 p(ary.count) #=> 4
 p(ary.count(2)) #=> 2
 p(ary.count(&:even?)) #=> 3
+
+# calling my_map enumerable
+puts "\n my_map"
+p(num.my_map { |i| i*i })      #=> [1, 4, 9, 16]
