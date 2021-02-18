@@ -102,6 +102,12 @@ module Enumerable
         end
         res
       end
+      # custom enumerable method that resembles built-in count enumerable
+      def my_count()
+        ctr=0
+        my_each {|value| ctr += 1 if yield(value)}
+        return ctr
+      end
 end
 num = [5, 7, 3, 4, 5]
 str = %w[a b c d]
@@ -126,7 +132,7 @@ p([nil, true, 99].my_all?) #=> false
 p([].my_all?) #=> true
 
 # calling my_none enumerable
-puts '\n my_none'
+puts "\n my_none"
 p(%w[ant bear cat].my_none? { |word| word.length == 5 }) #=> true
 p(%w[ant bear cat].my_none? { |word| word.length >= 4 }) #=> false
 p(%w[ant bear cat].my_none?(/d/)) #=> true
@@ -137,7 +143,7 @@ p([nil, false].none?) #=> true
 p([nil, false, true].none?) #=> false
 
 # calling my_any enumerable
-puts '\n my_any'
+puts "\n my_any"
 p(%w[ant bear cat].any? { |word| word.length >= 3 }) #=> true
 p(%w[ant bear cat].any? { |word| word.length >= 4 })#=> true
 p(%w[ant bear cat].any?(/d/))                        #=> false
