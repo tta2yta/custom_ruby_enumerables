@@ -126,7 +126,7 @@ p([nil, true, 99].my_all?) #=> false
 p([].my_all?) #=> true
 
 # calling my_none enumerable
-puts 'my_none'
+puts '\n my_none'
 p(%w[ant bear cat].my_none? { |word| word.length == 5 }) #=> true
 p(%w[ant bear cat].my_none? { |word| word.length >= 4 }) #=> false
 p(%w[ant bear cat].my_none?(/d/)) #=> true
@@ -137,6 +137,10 @@ p([nil, false].none?) #=> true
 p([nil, false, true].none?) #=> false
 
 # calling my_any enumerable
-puts 'my_none'
+puts '\n my_any'
 p(%w[ant bear cat].any? { |word| word.length >= 3 }) #=> true
 p(%w[ant bear cat].any? { |word| word.length >= 4 })#=> true
+p(%w[ant bear cat].any?(/d/))                        #=> false
+p([nil, true, 99].any?(Integer))                     #=> true
+p([nil, true, 99].any?)                              #=> true
+p([].any?)                                           #=> false
