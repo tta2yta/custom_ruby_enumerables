@@ -36,19 +36,25 @@ module Enumerable
     result
   end
 
-  def my_all(&block)
+  def my_all?(*args, &block)
     res = true
-    return res if self.empty?
+    return res if empty?
 
-    my_each do |_elem|
-    if block_given?
-      if block.call(_elem) == false
-        res = false
-        break
+    if args.empty?
+      my_each do |elem|
+        if block_given?
+          if block.call(elem) == false
+            res = false
+            break
+          end
+        elsif elem == false || elem.nil?
+          res = false
+        end
       end
-      else
-      if _elem==false || _elem==nil
-      res=false
+    elsif args[0].is_a?(Regexp)
+      my_each { |value| return false unless value.match?(args[0]) }
+    elsif args[0].is_a?(Module)
+      my_each { |value| return false unless value.is_a?(args[0]) }
     end
     res
   end
@@ -68,5 +74,9 @@ str.my_each_with_index { |index, item| puts "index=#{index}, item=#{item}" }
 p(num.my_select { |x| x > 3 })
 
 # calling my_all enumerable
-num_1=[]
-p(num_1.my_all { |x| x >= 3 })
+p(%w[ant bear cat].my_all? { |word| word.length >= 3 }) #=> true
+p(%w[ant bear cat].my_all? { |word| word.length >= 4 }) #=> false
+p(%w[ant bear cat].my_all?(/t/)) #=> false
+p([1, 2i, 3.14].my_all?(Numeric)) #=> true
+p([nil, true, 99].my_all?) #=> false
+p([].my_all?) #=> true
