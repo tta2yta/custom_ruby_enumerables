@@ -115,10 +115,26 @@ module Enumerable
   def my_map()
     res = []
     return self unless block_given?
-
     my_each { |value| res << yield(value) }
     res
   end
+
+  def my_inject(initial = nil, second = nil)
+    arr = is_a?(Array) ? self : to_a 
+    sym = initial if initial.is_a?(Symbol) || initial.is_a?(String) 
+    acc = initial if initial.is_a? Integer 
+
+    if initial.is_a?(Integer) 
+     sym = second if second.is_a?(Symbol) || second.is_a?(String) 
+    end 
+
+   if sym 
+     arr.my_each { |x| acc = acc ? acc.send(sym, x) : x }
+   elsif block_given? 
+     arr.my_each { |x| acc = acc ? yield(acc, x) : x }
+   end 
+   acc 
+ end 
 end
 num = [5, 7, 3, 4, 5]
 str = %w[a b c d]
@@ -171,5 +187,18 @@ p(ary.count(&:even?)) #=> 3
 
 # calling my_map enumerable
 puts "\n my_map"
+str1=['aa','dd','gg']
+p(str1.my_map)
 p(num.my_map { |i| i * i }) #=> [25, 49, 9, 16, 25]
 p((1..4).map { |i| i * i }) #=> [1, 4, 9, 16]
+
+# calling my_inject enumerable
+puts "\n my_inject"
+p((5..10).my_inject(:+))                             #=> 45
+p((5..10).inject { |sum, n| sum + n })           #=> 45
+p((5..10).reduce(1, :*))                         #=> 151200
+p((5..10).inject(1) { |product, n| product * n }) #=> 151200
+longest = %w{ cat sheep bear }.inject do |memo, word|
+   memo.length > word.length ? memo : word
+end
+p(longest)                                        #=> "sheep"
