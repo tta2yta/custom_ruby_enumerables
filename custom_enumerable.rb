@@ -119,7 +119,7 @@ module Enumerable
     my_each { |value| res << yield(value) }
     res
   end
-
+ # custom enumerable method that resembles built-in inject enumerable
   def my_inject(initial = nil, second = nil)
     arr = is_a?(Array) ? self : to_a
     sym = initial if initial.is_a?(Symbol) || initial.is_a?(String)
@@ -135,6 +135,10 @@ module Enumerable
       arr.my_each { |x| acc = acc ? yield(acc, x) : x }
     end
     acc
+  end
+
+  # method that tests my_inject enumerable method
+  def multiply_els()
   end
 end
 num = [5, 7, 3, 4, 5]
