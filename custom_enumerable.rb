@@ -59,7 +59,28 @@ module Enumerable
     res
   end
 
-  def my_none(*args, &block)
+  def my_none?(*args, &block)
+    res = true
+    return true if empty?
+
+    if args.empty?
+      my_each do |elem|
+        if block_given?
+          if block.call(elem) == true
+            res = false
+            break
+          end
+        elsif elem == false || elem.nil?
+          res = false
+        end
+      end
+    elsif args[0].is_a?(Regexp)
+      my_each { |value| return false if value.match?(args[0]) }
+    elsif args[0].is_a?(Module)
+      my_each { |value| return false if value.is_a?(args[0]) }
+
+    end
+    res
   end
 end
 num = [5, 7, 3, 4, 5]
@@ -76,11 +97,21 @@ str.my_each_with_index { |index, item| puts "index=#{index}, item=#{item}" }
 # calling my_select enumerable
 p(num.my_select { |x| x > 3 })
 
-
 # calling my_all enumerable
-p(%w{ant bear cat}.my_all? { |word| word.length >= 3 }) #=> true
+p(%w[ant bear cat].my_all? { |word| word.length >= 3 }) #=> true
 p(%w[ant bear cat].my_all? { |word| word.length >= 4 }) #=> false
 p(%w[ant bear cat].my_all?(/t/)) #=> false
 p([1, 2i, 3.14].my_all?(Numeric)) #=> true
 p([nil, true, 99].my_all?) #=> false
 p([].my_all?) #=> true
+
+# calling my_none enumerable
+puts 'my_none'
+p(%w[ant bear cat].my_none? { |word| word.length == 5 }) #=> true
+p(%w[ant bear cat].my_none? { |word| word.length >= 4 }) #=> false
+p(%w[ant bear cat].my_none?(/d/)) #=> true
+p([1, 3.14, 42].my_none?(Float)) #=> false
+p([].none?) #=> true
+p([nil].none?) #=> true
+p([nil, false].none?) #=> true
+p([nil, false, true].none?) #=> false
