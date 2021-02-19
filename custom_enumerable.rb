@@ -2,6 +2,7 @@ module Enumerable
   # custom enumerable method that resembles built-in my_each enumerable
   def my_each
     return self unless block_given?
+
     index = 0
     while index < size
       if is_a?(Array)
@@ -88,22 +89,21 @@ module Enumerable
   end
 
   # custom enumerable method that resembles built-in any enumerable
-  def my_any?(*args, &block)
+  def my_any?(*args)
     res = false
     return false if empty?
 
     if args.empty?
       my_each do |elem|
         if block_given?
-        if yield(elem) == true
-          res = true
-          break
-        end
-        elsif elem == true
+          if yield(elem) == true
             res = true
             break
           end
-
+        elsif elem == true
+          res = true
+          break
+        end
       end
     elsif args[0].is_a?(Regexp)
       my_each { |value| return true if value.match?(args[0]) }
@@ -126,6 +126,15 @@ module Enumerable
     return self unless block_given?
 
     my_each { |value| res << yield(value) }
+    res
+  end
+
+  # custom enumerable method that resembles built-in map that accepts proc
+  def my_map_proc(&block)
+    res = []
+    return self unless block_given?
+
+    my_each { |value| res << value if block.call?(value) }
     res
   end
 
@@ -208,6 +217,13 @@ p(ary.count(&:even?)) #=> 3
 
 # calling my_map enumerable
 puts "\n my_map"
+str1 = %w[aa dd gg]
+p(str1.my_map)
+p(num.my_map { |i| i * i }) #=> [25, 49, 9, 16, 25]
+p((1..4).my_map { |i| i * i }) #=> [1, 4, 9, 16]
+
+# calling my_map_proc enumerable
+puts "\n my_map_proc"
 str1 = %w[aa dd gg]
 p(str1.my_map)
 p(num.my_map { |i| i * i }) #=> [25, 49, 9, 16, 25]
