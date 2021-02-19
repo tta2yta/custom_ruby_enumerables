@@ -35,7 +35,7 @@ This project consist of different ruby enumerable methods that emulate Ruby's in
 
 
 ## 🔴 Live Demo <a name = "ldl"></a>
-<iframe height="400px" width="100%" src="https://repl.it/@tta2yta/customrubyenumerables-3?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+[![Run on Repl.it](https://repl.it/@tta2yta)](https://repl.it/@tta2yta/customrubyenumerables-3?lite=true)
 
 ## 🔨 Setup
 
