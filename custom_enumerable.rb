@@ -91,10 +91,16 @@ module Enumerable
 
     if args.empty?
       my_each do |elem|
-        if block.call(elem) == true
+        if block_given?
+        if yield(elem) == true
           res = true
           break
         end
+        elsif elem == true
+            res = true
+            break
+          end
+
       end
     elsif args[0].is_a?(Regexp)
       my_each { |value| return true if value.match?(args[0]) }
@@ -119,7 +125,8 @@ module Enumerable
     my_each { |value| res << yield(value) }
     res
   end
- # custom enumerable method that resembles built-in inject enumerable
+
+  # custom enumerable method that resembles built-in inject enumerable
   def my_inject(initial = nil, second = nil)
     arr = is_a?(Array) ? self : to_a
     sym = initial if initial.is_a?(Symbol) || initial.is_a?(String)
@@ -139,8 +146,14 @@ module Enumerable
 
   # method that tests my_inject enumerable method
   def multiply_els()
+    arr.my_inject
+  end
+
+  def hello
+    puts 'hello'
   end
 end
+
 num = [5, 7, 3, 4, 5]
 str = %w[a b c d]
 
@@ -176,12 +189,12 @@ p([nil, false, true].none?) #=> false
 
 # calling my_any enumerable
 puts "\n my_any"
-p(%w[ant bear cat].any? { |word| word.length >= 3 }) #=> true
-p(%w[ant bear cat].any? { |word| word.length >= 4 }) #=> true
-p(%w[ant bear cat].any?(/d/)) #=> false
-p([nil, true, 99].any?(Integer)) #=> true
-p([nil, true, 99].any?) #=> true
-p([].any?) #=> false
+p(%w[ant bear cat].my_any? { |word| word.length >= 3 }) #=> true
+p(%w[ant bear cat].my_any? { |word| word.length >= 4 }) #=> true
+p(%w[ant bear cat].my_any?(/d/)) #=> false
+p([nil, true, 99].my_any?(Integer)) #=> true
+p([nil, true, 99].my_any?) #=> true
+p([].my_any?) #=> false
 
 # calling my_count enumerable
 puts "\n my_count"
@@ -195,15 +208,22 @@ puts "\n my_map"
 str1 = %w[aa dd gg]
 p(str1.my_map)
 p(num.my_map { |i| i * i }) #=> [25, 49, 9, 16, 25]
-p((1..4).map { |i| i * i }) #=> [1, 4, 9, 16]
+p((1..4).my_map { |i| i * i }) #=> [1, 4, 9, 16]
 
 # calling my_inject enumerable
 puts "\n my_inject"
 p((5..10).my_inject(:+)) #=> 45
-p((5..10).inject { |sum, n| sum + n }) #=> 45
-p((5..10).reduce(1, :*)) #=> 151200
-p((5..10).inject(1) { |product, n| product * n }) #=> 151200
-longest = %w[cat sheep bear].inject do |memo, word|
+p((5..10).my_inject { |sum, n| sum + n }) #=> 45
+p((5..10).my_inject(1, :*)) #=> 151200
+p((5..10).my_inject(1) { |product, n| product * n }) #=> 151200
+longest = %w[cat sheep bear].my_inject do |memo, word|
   memo.length > word.length ? memo : word
 end
 p(longest) #=> "sheep"
+
+# testing my_injcet method
+puts "\n Testing my_injcet method "
+def multiply_els(arr)
+  arr.my_inject(:*)
+end
+p multiply_els([2, 4, 5])
