@@ -75,7 +75,7 @@ module Enumerable
             res = false
             break
           end
-        elsif elem == false || elem.nil?
+        elsif elem == true
           res = false
         end
       end
@@ -114,10 +114,20 @@ module Enumerable
   end
 
   # custom enumerable method that resembles built-in count enumerable
-  def my_count()
-    ctr = 0
-    my_each { |value| ctr += 1 if yield(value) }
-    ctr
+  def my_count(num = nil)
+    count = 0
+    if num.nil?
+      if block_given?
+        my_each { |value| count += 1 if yield(value) }
+      else
+        count = size
+      end
+    else
+      my_each do |value|
+        count += 1 if num == value
+      end
+    end
+    count
   end
 
   # custom enumerable method that resembles built-in map enumerable

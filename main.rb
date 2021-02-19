@@ -4,17 +4,21 @@ num = [5, 7, 3, 4, 5]
 str = %w[a b c d]
 
 # calling my_each enumerable
+puts "\n my_each"
 num.my_each { |x| puts "x=#{x}" }
 str.my_each { |y| puts "y=#{y}" }
 
 # calling my_each_with_index enumerable
+puts "\n my_each_with_index"
 num.my_each_with_index { |index, item| puts "index=#{index}, item=#{item}" }
 str.my_each_with_index { |index, item| puts "index=#{index}, item=#{item}" }
 
 # calling my_select enumerable
+puts "\n my_select"
 p(num.my_select { |x| x > 3 })
 
 # calling my_all enumerable
+puts "\n my_all"
 p(%w[ant bear cat].my_all? { |word| word.length >= 3 }) #=> true
 p(%w[ant bear cat].my_all? { |word| word.length >= 4 }) #=> false
 p(%w[ant bear cat].my_all?(/t/)) #=> false
@@ -28,10 +32,10 @@ p(%w[ant bear cat].my_none? { |word| word.length == 5 }) #=> true
 p(%w[ant bear cat].my_none? { |word| word.length >= 4 }) #=> false
 p(%w[ant bear cat].my_none?(/d/)) #=> true
 p([1, 3.14, 42].my_none?(Float)) #=> false
-p([].none?) #=> true
-p([nil].none?) #=> true
-p([nil, false].none?) #=> true
-p([nil, false, true].none?) #=> false
+p([].my_none?) #=> true
+p([nil].my_none?) #=> true
+p([nil, false].my_none?) #=> true
+p([nil, false, true].my_none?) #=> false
 
 # calling my_any enumerable
 puts "\n my_any"
@@ -45,9 +49,9 @@ p([].my_any?) #=> false
 # calling my_count enumerable
 puts "\n my_count"
 ary = [1, 2, 4, 2]
-p(ary.count) #=> 4
-p(ary.count(2)) #=> 2
-p(ary.count(&:even?)) #=> 3
+p(ary.my_count) #=> 4
+p(ary.my_count(2)) #=> 2
+p(ary.my_count(&:even?)) #=> 3
 
 # calling my_map enumerable
 puts "\n my_map"
