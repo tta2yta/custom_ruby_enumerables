@@ -24,6 +24,11 @@ hsh.my_each_with_index { |x, y| puts "index x=#{x}, item=#{y}" }
 # calling my_select enumerable
 puts "\n my_select"
 p(num.my_select { |x| x > 3 })
+p(1..10).my_each_with_index
+p(str.my_each_with_index)
+p (1..10).find_all { |i|  i % 3 == 0 }   #=> [3, 6, 9]
+p [1,2,3,4,5].select { |num|  num.even?  }   #=> [2, 4]
+p [:foo, :bar].filter { |x| x == :foo }   #=> [:foo]
 
 # calling my_all enumerable
 puts "\n my_all"
@@ -31,8 +36,9 @@ p(%w[ant bear cat].my_all? { |word| word.length >= 3 }) #=> true
 p(%w[ant bear cat].my_all? { |word| word.length >= 4 }) #=> false
 p(%w[ant bear cat].my_all?(/t/)) #=> false
 p([1, 2i, 3.14].my_all?(Numeric)) #=> true
-p([nil, true, 99].my_all?) #=> false
+p([false, true, 99].my_all?) #=> false
 p([].my_all?) #=> true
+p (1..10).my_all?(Numeric)
 
 # calling my_none enumerable
 puts "\n my_none"

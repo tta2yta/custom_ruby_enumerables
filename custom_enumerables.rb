@@ -20,7 +20,7 @@ module Enumerable
 
   # custom enumerable method that resembles built-in each_with_index enumerable
   def my_each_with_index
-    return enum_for(:my_each) unless block_given?
+    return enum_for(:my_each_with_index) unless block_given?
 
     index = 0
     while index < size
@@ -39,6 +39,8 @@ module Enumerable
 
   # custom enumerable method that resembles built-in select enumerable
   def my_select(&block)
+    return enum_for(:my_select) unless block_given?
+
     result = []
     my_each do |x|
       result << x if block.call(x)
@@ -48,7 +50,6 @@ module Enumerable
 
   def my_all?(*args, &block)
     res = true
-    return res if empty?
 
     if args.empty?
       my_each do |elem|
