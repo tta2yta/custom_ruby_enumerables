@@ -1,7 +1,7 @@
 module Enumerable
   # custom enumerable method that resembles built-in my_each enumerable
   def my_each
-    return self unless block_given?
+    return enum_for(:my_each) unless block_given?
 
     index = 0
     while index < size
@@ -20,15 +20,21 @@ module Enumerable
 
   # custom enumerable method that resembles built-in each_with_index enumerable
   def my_each_with_index
-    if block_given?
-      i = 0
-      while i < size
-        yield i, self[i]
-        i += 1
+    return enum_for(:my_each) unless block_given?
+
+    index = 0
+    while index < size
+      if is_a?(Array)
+        yield(self[index])
+      elsif is_a?(Range)
+        yield(to_a[index])
+      elsif is_a?(Hash)
+        yield([keys[index], self[keys[index]]])
       end
-    else
-      yield self
+      index += 1
     end
+
+    self
   end
 
   # custom enumerable method that resembles built-in select enumerable

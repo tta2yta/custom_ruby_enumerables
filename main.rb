@@ -1,17 +1,25 @@
 require_relative('custom_enumerables')
 
 num = [5, 7, 3, 4, 5]
-str = %w[a b c d]
+str = %w[a b c]
+hsh = { name: 'ted', age: 30, sex: 'male' }
 
 # calling my_each enumerable
 puts "\n my_each"
 num.my_each { |x| puts "x=#{x}" }
-str.my_each { |y| puts "y=#{y}" }
+str.my_each { |y| puts "item=#{y}" }
+hsh.my_each { |x, y| puts "index x=#{x}, item=#{y}" }
+p(1..10).my_each
+p(str.my_each)
 
 # calling my_each_with_index enumerable
 puts "\n my_each_with_index"
 num.my_each_with_index { |index, item| puts "index=#{index}, item=#{item}" }
 str.my_each_with_index { |index, item| puts "index=#{index}, item=#{item}" }
+p(1..10).my_each_with_index
+p(str.my_each_with_index)
+str.my_each_with_index { |y| puts "item=#{y}" }
+hsh.my_each_with_index { |x, y| puts "index x=#{x}, item=#{y}" }
 
 # calling my_select enumerable
 puts "\n my_select"
