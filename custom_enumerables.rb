@@ -142,35 +142,28 @@ module Enumerable
   # custom enumerable method that resembles built-in map enumerable that accepts block
   def my_map
     result = []
-    if block_given?
-        result = []
-        if is_a?(Array) || is_a?(Range)
-           my_each {|value| result << yield(value)}
-        elsif is_a?(Hash)
-            my_each {|k,v| result << yield(k, v)}
-        end
+    return enum_for(:my_map) unless block_given?
 
-    else
-        return enum_for(:my_map)
+    if is_a?(Array) || is_a?(Range)
+      my_each { |value| result << yield(value) }
+    elsif is_a?(Hash)
+      my_each { |k, v| result << yield(k, v) }
     end
     result
-end
+  end
 
   # custom enumerable method that resembles built-in map that accepts proc
   def my_map2(&proc)
-    if block_given?
-        result = []
-        if is_a?(Array) || is_a?(Range)
-            my_each {|value| result << proc.call(value)}
-        elsif is_a?(Hash)
-            my_each {|k,v| result << proc.call(k,v)}
-        end
-        result
-    else
-        enum_for(:my_map2)
-    end
-end
+    result = []
+    return enum_for(:my_map2) unless block_given?
 
+    if is_a?(Array) || is_a?(Range)
+      my_each { |value| result << proc.call(value) }
+    elsif is_a?(Hash)
+      my_each { |k, v| result << proc.call(k, v) }
+    end
+    result
+  end
 
   # custom enumerable method that resembles built-in inject enumerable
   def my_inject(initial = nil, second = nil)
