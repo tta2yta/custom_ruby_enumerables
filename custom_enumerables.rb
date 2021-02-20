@@ -139,23 +139,38 @@ module Enumerable
     count
   end
 
-  # custom enumerable method that resembles built-in map enumerable
-  def my_map()
-    res = []
-    return self unless block_given?
+  # custom enumerable method that resembles built-in map enumerable that accepts block
+  def my_map
+    result = []
+    if block_given?
+        result = []
+        if is_a?(Array) || is_a?(Range)
+           my_each {|value| result << yield(value)}
+        elsif is_a?(Hash)
+            my_each {|k,v| result << yield(k, v)}
+        end
 
-    my_each { |value| res << yield(value) }
-    res
-  end
+    else
+        return enum_for(:my_map)
+    end
+    result
+end
 
   # custom enumerable method that resembles built-in map that accepts proc
-  def my_map_proc(&block)
-    res = []
-    return self unless block_given?
+  def my_map2(&proc)
+    if block_given?
+        result = []
+        if is_a?(Array) || is_a?(Range)
+            my_each {|value| result << proc.call(value)}
+        elsif is_a?(Hash)
+            my_each {|k,v| result << proc.call(k,v)}
+        end
+        result
+    else
+        enum_for(:my_map2)
+    end
+end
 
-    my_each { |value| res << value if block.call?(value) }
-    res
-  end
 
   # custom enumerable method that resembles built-in inject enumerable
   def my_inject(initial = nil, second = nil)
@@ -171,6 +186,8 @@ module Enumerable
       arr.my_each { |x| acc = acc ? acc.send(sym, x) : x }
     elsif block_given?
       arr.my_each { |x| acc = acc ? yield(acc, x) : x }
+    else
+      raise LocalJumpError
     end
     acc
   end

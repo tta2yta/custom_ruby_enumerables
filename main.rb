@@ -79,9 +79,9 @@ p((1..4).my_map { |i| i * i }) #=> [1, 4, 9, 16]
 # calling my_map_proc enumerable
 puts "\n my_map_proc"
 str1 = %w[aa dd gg]
-p(str1.my_map)
-p(num.my_map { |i| i * i }) #=> [25, 49, 9, 16, 25]
-p((1..4).my_map { |i| i * i }) #=> [1, 4, 9, 16]
+p(str1.my_map2)
+p(num.my_map2 { |i| i * i }) #=> [25, 49, 9, 16, 25]
+p((1..4).my_map2 { |i| i * i }) #=> [1, 4, 9, 16]
 
 # calling my_inject enumerable
 puts "\n my_inject"
@@ -93,6 +93,7 @@ longest = %w[cat sheep bear].my_inject do |memo, word|
   memo.length > word.length ? memo : word
 end
 p(longest) #=> "sheep"
+# p((5..10).my_inject)
 
 # testing my_injcet method
 puts "\n Testing my_injcet method "
