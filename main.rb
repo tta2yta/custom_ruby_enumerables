@@ -26,9 +26,9 @@ puts "\n my_select"
 p(num.my_select { |x| x > 3 })
 p(1..10).my_each_with_index
 p(str.my_each_with_index)
-p (1..10).find_all { |i|  i % 3 == 0 }   #=> [3, 6, 9]
-p [1,2,3,4,5].select { |num|  num.even?  }   #=> [2, 4]
-p [:foo, :bar].filter { |x| x == :foo }   #=> [:foo]
+p (1..10).find_all { |i| i % 3 == 0 } #=> [3, 6, 9]
+p [1, 2, 3, 4, 5].select(&:even?) #=> [2, 4]
+p %i[foo bar].filter { |x| x == :foo } #=> [:foo]
 
 # calling my_all enumerable
 puts "\n my_all"
@@ -50,6 +50,7 @@ p([].my_none?) #=> true
 p([nil].my_none?) #=> true
 p([nil, false].my_none?) #=> true
 p([nil, false, true].my_none?) #=> false
+p (1..10).my_none?(Numeric)
 
 # calling my_any enumerable
 puts "\n my_any"
@@ -59,6 +60,7 @@ p(%w[ant bear cat].my_any?(/d/)) #=> false
 p([nil, true, 99].my_any?(Integer)) #=> true
 p([nil, true, 99].my_any?) #=> true
 p([].my_any?) #=> false
+p (1..10).my_any?(Numeric)
 
 # calling my_count enumerable
 puts "\n my_count"

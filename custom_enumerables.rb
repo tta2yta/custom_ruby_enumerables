@@ -66,6 +66,8 @@ module Enumerable
       my_each { |value| return false unless value.match?(args[0]) }
     elsif args[0].is_a?(Module)
       my_each { |value| return false unless value.is_a?(args[0]) }
+    else
+      my_each { |value| return false unless value.is_a?(args[0]) }
     end
     res
   end
@@ -73,8 +75,6 @@ module Enumerable
   # custom enumerable method that resembles built-in none enumerable
   def my_none?(*args, &block)
     res = true
-    return true if empty?
-
     if args.empty?
       my_each do |elem|
         if block_given?
@@ -90,7 +90,8 @@ module Enumerable
       my_each { |value| return false if value.match?(args[0]) }
     elsif args[0].is_a?(Module)
       my_each { |value| return false if value.is_a?(args[0]) }
-
+    else
+      my_each { |value| return false if value.is_a?(args[0]) }
     end
     res
   end
@@ -98,7 +99,6 @@ module Enumerable
   # custom enumerable method that resembles built-in any enumerable
   def my_any?(*args)
     res = false
-    return false if empty?
 
     if args.empty?
       my_each do |elem|
@@ -115,6 +115,8 @@ module Enumerable
     elsif args[0].is_a?(Regexp)
       my_each { |value| return true if value.match?(args[0]) }
     elsif args[0].is_a?(Module)
+      my_each { |value| return true if value.is_a?(args[0]) }
+    else
       my_each { |value| return true if value.is_a?(args[0]) }
     end
     res
