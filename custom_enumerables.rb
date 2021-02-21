@@ -25,11 +25,11 @@ module Enumerable
     index = 0
     while index < size
       if is_a?(Array)
-        yield(self[index])
+        yield(self[index], index)
       elsif is_a?(Range)
-        yield(to_a[index])
+        yield(to_a[index], index)
       elsif is_a?(Hash)
-        yield([keys[index], self[keys[index]]])
+        yield([keys[index], self[keys[index]]], index)
       end
       index += 1
     end
