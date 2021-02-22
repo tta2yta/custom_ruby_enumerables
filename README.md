@@ -63,6 +63,10 @@ $ ruby custom_enumerables.rb
 - Twitter: [@Tedros12859799](https://twitter.com/Tedros12859799)
 - Linkedin: [tedros-tesfay-489422111](https://www.linkedin.com/in/tedros-tesfay-489422111/)
 
+👤 **Sohaib Asif**
+
+- Github: [@sohaibya](https://github.com/sohaibya)
+- Twitter: [@Sohaib](https://twitter.com/Sohaib)
 
 ## 🤝 Contributing
 
