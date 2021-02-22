@@ -46,13 +46,13 @@ $ cd <Enumerables>
 ```
 
 ```
-$ git clone https://github.com/Georjane/My-Enumerables.git
+$ git clone https://github.com/tta2yta/custom_ruby_enumerables.git
 ```
 
 ## To run the code:
 
 ```
-$ ruby myenum.rb
+$ ruby custom_enumerables.rb
 ```
 
 ## ✒️  Author <a name = "author"></a>
