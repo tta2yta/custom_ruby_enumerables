@@ -37,14 +37,23 @@ This project consist of different ruby enumerable methods that emulate Ruby's in
 ## 🔴 Live Demo <a name = "ldl"></a>
 [![Run on Repl.it](https://repl.it/@tta2yta)](https://repl.it/@tta2yta/customrubyenumerables-3?lite=true)
 
-## 🔨 Setup
+## Getting Started
 
-- Fork the repo to your remote repository.
-- Clone or download the repository to a local directory on your computer.
+To get a local copy of the repository please run the following commands on your terminal:
 
-## 🛠 Installing <a name = "ins"></a>
+```
+$ cd <Enumerables>
+```
 
-- run npm install to install the dependencies for the project.
+```
+$ git clone https://github.com/tta2yta/custom_ruby_enumerables.git
+```
+
+## To run the code:
+
+```
+$ ruby custom_enumerables.rb
+```
 
 ## ✒️  Author <a name = "author"></a>
 
@@ -54,6 +63,10 @@ This project consist of different ruby enumerable methods that emulate Ruby's in
 - Twitter: [@Tedros12859799](https://twitter.com/Tedros12859799)
 - Linkedin: [tedros-tesfay-489422111](https://www.linkedin.com/in/tedros-tesfay-489422111/)
 
+👤 **Sohaib Asif**
+
+- Github: [@sohaibya](https://github.com/sohaibya)
+- Twitter: [@Sohaib](https://twitter.com/Sohaib)
 
 ## 🤝 Contributing
 
