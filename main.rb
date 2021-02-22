@@ -39,18 +39,25 @@ p([1, 2i, 3.14].my_all?(Numeric)) #=> true
 p([nil, true, 99].my_all?) #=> false
 p([].my_all?) #=> true
 p(1..10).my_all?(Numeric)
+array = []
+5.times { array << 3 }
+p array.my_all?(3)
 
 # calling my_none enumerable
 puts "\n my_none"
 p(%w[ant bear cat].my_none? { |word| word.length == 5 }) #=> true
 p(%w[ant bear cat].my_none? { |word| word.length >= 4 }) #=> false
-p(%w[ant bear cat].my_none?(/d/)) #=> true
+p(%w[ant bear cat].none?(/d/)) #=> true
 p([1, 3.14, 42].my_none?(Float)) #=> false
 p([].my_none?) #=> true
 p([nil].my_none?) #=> true
 p([nil, false].my_none?) #=> true
 p([nil, false, true].my_none?) #=> false
 p(1..10).my_none?(Numeric)
+array = []
+5.times { array << 3 }
+p array.my_none?(3)
+p array
 
 # calling my_any enumerable
 puts "\n my_any"
@@ -61,6 +68,10 @@ p([nil, true, 99].my_any?(Integer)) #=> true
 p([nil, true, 99].my_any?) #=> true
 p([].my_any?) #=> false
 p(1..10).my_any?(Numeric)
+array = []
+5.times { array << 3 }
+p array.my_any?(3)
+p array
 
 # calling my_count enumerable
 puts "\n my_count"

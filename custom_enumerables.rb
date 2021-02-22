@@ -48,10 +48,10 @@ module Enumerable
     result
   end
 
-  def my_all?(*args, &block)
+  def my_all?(args = nil, &block)
     res = true
 
-    if args.empty?
+    if args.nil?
       my_each do |elem|
         if block_given?
           if block.call(elem) == false
@@ -62,23 +62,23 @@ module Enumerable
           res = false
         end
       end
-    elsif args[0].is_a?(Regexp)
-      my_each { |value| return false unless value.match?(args[0]) }
-    elsif args[0].is_a?(Module)
-      my_each { |value| return false unless value.class.ancestors.include?(args) }
+    elsif args.is_a?(Regexp)
+      my_each { |value| return false unless value.match(args) }
+    elsif args.is_a?(Class)
+      my_each { |value| return false unless value.is_a?(args) }
     else
-      my_each { |value| return false unless !value == true }
+      my_each { |value| return false if value != args }
     end
     res
   end
 
   # custom enumerable method that resembles built-in none enumerable
-  def my_none?(*args, &block)
+  def my_none?(args = nil)
     res = true
-    if args.empty?
+    if args.nil?
       my_each do |elem|
         if block_given?
-          if block.call(elem) == true
+          if yield(elem) == true
             res = false
             break
           end
@@ -86,21 +86,21 @@ module Enumerable
           res = false
         end
       end
-    elsif args[0].is_a?(Regexp)
-      my_each { |value| return false if value.match?(args[0]) }
-    elsif args[0].is_a?(Module)
-      my_each { |value| return false if value.class.ancestors.include?(args) }
+    elsif args.is_a?(Regexp)
+      my_each { |value| return false if value.match?(args) }
+    elsif args.is_a?(Class)
+      my_each { |value| return false if value.is_a?(args) }
     else
-      my_each { |value| return false if value == true }
+      my_each { |value| return false if value == args }
     end
     res
   end
 
   # custom enumerable method that resembles built-in any enumerable
-  def my_any?(*args)
+  def my_any?(args = nil)
     res = false
 
-    if args.empty?
+    if args.nil?
       my_each do |elem|
         if block_given?
           if yield(elem) == true
@@ -112,12 +112,12 @@ module Enumerable
           break
         end
       end
-    elsif args[0].is_a?(Regexp)
-      my_each { |value| return true if value.match?(args[0]) }
-    elsif args[0].is_a?(Class)
-      my_each { |value| return true if value.class.ancestors.include?(args) }
+    elsif args.is_a?(Regexp)
+      my_each { |value| return true if value.match?(args) }
+    elsif args.is_a?(Class)
+      my_each { |value| return true if value.is_a?(args) }
     else
-      my_each { |value| return true if value == true }
+      my_each { |value| return true if value == args }
     end
     res
   end
@@ -140,8 +140,8 @@ module Enumerable
   end
 
   # custom enumerable method that resembles built-in map enumerable that accepts block and proc
-  def my_map(&proc)
-    return enum_for(:my_map2) unless block_given?
+  def my_map(proc = nil)
+    return enum_for(:my_map) unless block_given?
 
     result = []
     arr = is_a?(Range) || Hash ? to_a : self
