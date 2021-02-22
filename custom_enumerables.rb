@@ -65,9 +65,9 @@ module Enumerable
     elsif args[0].is_a?(Regexp)
       my_each { |value| return false unless value.match?(args[0]) }
     elsif args[0].is_a?(Module)
-      my_each { |value| return false unless value.is_a?(args[0]) }
+      my_each { |value| return false unless value.class.ancestors.include?(args) }
     else
-      my_each { |value| return false unless value.is_a?(args[0]) }
+      my_each { |value| return false unless !value == true }
     end
     res
   end
@@ -89,9 +89,9 @@ module Enumerable
     elsif args[0].is_a?(Regexp)
       my_each { |value| return false if value.match?(args[0]) }
     elsif args[0].is_a?(Module)
-      my_each { |value| return false if value.is_a?(args[0]) }
+      my_each { |value| return false if value.class.ancestors.include?(args) }
     else
-      my_each { |value| return false if value.is_a?(args[0]) }
+      my_each { |value| return false if value == true }
     end
     res
   end
@@ -114,10 +114,10 @@ module Enumerable
       end
     elsif args[0].is_a?(Regexp)
       my_each { |value| return true if value.match?(args[0]) }
-    elsif args[0].is_a?(Module)
-      my_each { |value| return true if value.is_a?(args[0]) }
+    elsif args[0].is_a?(Class)
+      my_each { |value| return true if value.class.ancestors.include?(args) }
     else
-      my_each { |value| return true if value.is_a?(args[0]) }
+      my_each { |value| return true if value == true }
     end
     res
   end
@@ -139,28 +139,16 @@ module Enumerable
     count
   end
 
-  # custom enumerable method that resembles built-in map enumerable that accepts block
-  def my_map
-    result = []
-    return enum_for(:my_map) unless block_given?
-
-    if is_a?(Array) || is_a?(Range)
-      my_each { |value| result << yield(value) }
-    elsif is_a?(Hash)
-      my_each { |k, v| result << yield(k, v) }
-    end
-    result
-  end
-
-  # custom enumerable method that resembles built-in map that accepts proc
-  def my_map2(&proc)
-    result = []
+  # custom enumerable method that resembles built-in map enumerable that accepts block and proc
+  def my_map(&proc)
     return enum_for(:my_map2) unless block_given?
 
-    if is_a?(Array) || is_a?(Range)
-      my_each { |value| result << proc.call(value) }
-    elsif is_a?(Hash)
-      my_each { |k, v| result << proc.call(k, v) }
+    result = []
+    arr = is_a?(Range) || Hash ? to_a : self
+    if proc.nil?
+      arr.my_each { |value| result << yield(value) }
+    else
+      arr.my_each { |k, v| result << proc.call(k, v) }
     end
     result
   end
