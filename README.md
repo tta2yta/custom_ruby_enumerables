@@ -37,14 +37,23 @@ This project consist of different ruby enumerable methods that emulate Ruby's in
 ## 🔴 Live Demo <a name = "ldl"></a>
 [![Run on Repl.it](https://repl.it/@tta2yta)](https://repl.it/@tta2yta/customrubyenumerables-3?lite=true)
 
-## 🔨 Setup
+## Getting Started
 
-- Fork the repo to your remote repository.
-- Clone or download the repository to a local directory on your computer.
+To get a local copy of the repository please run the following commands on your terminal:
 
-## 🛠 Installing <a name = "ins"></a>
+```
+$ cd <Enumerables>
+```
 
-- run npm install to install the dependencies for the project.
+```
+$ git clone https://github.com/Georjane/My-Enumerables.git
+```
+
+## To run the code:
+
+```
+$ ruby myenum.rb
+```
 
 ## ✒️  Author <a name = "author"></a>
 
