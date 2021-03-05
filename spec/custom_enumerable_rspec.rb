@@ -152,4 +152,16 @@ describe Enumerable do
       expect(%w[2 4 6 7].my_any?(Numeric)).to eql(false)
     end
   end
+  describe '#my_count?' do
+    ary = [1, 2, 4, 2]
+    it 'If the block is not given, my_count? Returns the number of items in enum through enumeration' do
+      expect(ary.my_count).to eql(4)
+    end
+    it 'If a block is given, it counts the number of elements yielding a true value' do
+      expect(ary.my_count(2)).to eql(2)
+    end
+    it 'If an argument is given, the number of items in enum that are equal to item are counted' do
+      expect(ary.my_count(&:even?)).to eql(3)
+    end
+  end
 end
