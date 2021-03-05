@@ -55,4 +55,10 @@ describe Enumerable do
       expect(person.my_select { |key, _val| key == 'gender' }).to eql([%w[gender male]])
     end
   end
+  describe '#my_all?' do
+  it 'return true if block is not given' do
+    expect(arr.my_all?).to eql(true)
+  end
+  
+  end
 end
