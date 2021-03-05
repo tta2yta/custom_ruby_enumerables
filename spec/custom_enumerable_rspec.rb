@@ -87,4 +87,12 @@ describe Enumerable do
       expect([2, 4, 6, 't'].all?(Numeric)).to eql(false)
     end
   end
+  describe '#my_any?' do
+    it 'if block is not given return true  when at least one of the collection members is not false or nil.' do
+      expect([nil, true, 99].any?).to eql(true)
+    end
+    it 'if block is not given return flase  when all of the collection members is false or nil.' do
+      expect([nil, nil, false].any?).to eql(false)
+    end
+  end
 end
