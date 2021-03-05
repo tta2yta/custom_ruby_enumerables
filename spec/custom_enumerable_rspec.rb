@@ -119,4 +119,9 @@ describe Enumerable do
       expect(%w[2 4 6 7].my_any?(Numeric)).to eql(false)
     end
   end
+  describe '#my_none?' do
+  it 'If the block is not given, my_none? will return true only if none of the collection members is true.' do
+    expect(%w{ant bear cat}.my_none? { |word| word.length == 5 }).to eql(true)
+  end
+end
 end
