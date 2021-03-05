@@ -159,9 +159,7 @@ module Enumerable
     sym = initial if initial.is_a?(Symbol) || initial.is_a?(String)
     acc = initial if initial.is_a? Integer
 
-    if initial.is_a?(Integer)
-      sym = second if second.is_a?(Symbol) || second.is_a?(String)
-    end
+    sym = second if initial.is_a?(Integer) && (second.is_a?(Symbol) || second.is_a?(String))
 
     if sym
       arr.my_each { |x| acc = acc ? acc.send(sym, x) : x }

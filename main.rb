@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require_relative('custom_enumerables')
 
 num = [5, 7, 3, 4, 5]
@@ -24,11 +26,8 @@ hsh.my_each_with_index { |x, y| puts "index x=#{x}, item=#{y}" }
 # calling my_select enumerable
 puts "\n my_select"
 p(num.my_select { |x| x > 3 })
-p(1..10).my_each_with_index
-p(str.my_each_with_index)
-p(1..10).find_all { |i| (i % 3).zero? } #=> [3, 6, 9]
-p([1, 2, 3, 4, 5].select(&:even?)) #=> [2, 4]
-p(%i[foo bar].filter { |x| x == :foo }) #=> [:foo]
+p([1, 2, 3, 4, 5].my_select(&:even?)) #=> [2, 4]
+p(%i[foo bar].my_select { |x| x == :foo }) #=> [:foo]
 
 # calling my_all enumerable
 puts "\n my_all"
@@ -47,7 +46,7 @@ p array.my_all?(3)
 puts "\n my_none"
 p(%w[ant bear cat].my_none? { |word| word.length == 5 }) #=> true
 p(%w[ant bear cat].my_none? { |word| word.length >= 4 }) #=> false
-p(%w[ant bear cat].none?(/d/)) #=> true
+p(%w[ant bear cat].my_none?(/d/)) #=> true
 p([1, 3.14, 42].my_none?(Float)) #=> false
 p([].my_none?) #=> true
 p([nil].my_none?) #=> true
@@ -88,7 +87,7 @@ p(num.my_map { |i| i * i }) #=> [25, 49, 9, 16, 25]
 p((1..4).my_map { |i| i * i }) #=> [1, 4, 9, 16]
 factor = proc { |n| print n * 2 }
 # using the proc value
-[3, 2, 1].each(&factor)
+[3, 2, 1].my_map(&factor)
 
 # calling my_map_proc enumerable
 # puts "\n my_map_proc"
