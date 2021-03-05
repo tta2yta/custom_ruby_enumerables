@@ -184,4 +184,10 @@ describe Enumerable do
       
     end
   end
+  describe '#my_inject' do
+  it 'when a block is given without an intial it will return the total sum of the condition applied on
+  every intances in the range' do
+    expect((1..4).my_inject { |sum, n| sum + n }).to eql(10)
+  end
+end
 end
