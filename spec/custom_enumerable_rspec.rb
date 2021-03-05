@@ -123,5 +123,8 @@ describe Enumerable do
   it 'If the block is not given, my_none? will return true only if none of the collection members is true.' do
     expect(%w{ant bear cat}.my_none? { |word| word.length == 5 }).to eql(true)
   end
+  it 'If the block is not given, my_none? will return false only if at least one of the collection members is true.' do
+    expect(%w{ant bear cat}.my_none? { |word| word.length == 4 }).to eql(false)
+  end
 end
 end
