@@ -56,9 +56,11 @@ describe Enumerable do
     end
   end
   describe '#my_all?' do
-  it 'return true if block is not given' do
-    expect(arr.my_all?).to eql(true)
-  end
-  
+    it 'return true if block is not given' do
+      expect(arr.my_all?).to eql(true)
+    end
+    it 'The method returns true if the block never returns false or nil' do
+      expect(%w[ant bear cat].all? { |word| word.length >= 3 }).to eql(true)
+    end
   end
 end
