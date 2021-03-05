@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 require_relative('custom_enumerables')
 
 num = [5, 7, 3, 4, 5]
