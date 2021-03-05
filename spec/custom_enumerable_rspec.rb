@@ -60,39 +60,63 @@ describe Enumerable do
       expect(arr.my_all?).to eql(true)
     end
     it 'return false if block is not given when one of the collection members are false or nil.' do
-      expect([nil, true, 99].all?).to eql(false)
+      expect([nil, true, 99].my_all?).to eql(false)
     end
     it 'The method returns true if the block never returns false or nil' do
-      expect(%w[ant bear cat].all? { |word| word.length >= 3 }).to eql(true)
+      expect(%w[ant bear cat].my_all? { |word| word.length >= 3 }).to eql(true)
     end
     it 'The method returns false if the block  returns false or nil' do
-      expect(%w[ant bear cat].all? { |word| word.length >= 13 }).to eql(false)
+      expect(%w[ant bear cat].my_all? { |word| word.length >= 13 }).to eql(false)
     end
     it 'The method returns true if the pattern  matches every element' do
-      expect([3, 3, 3, 3].all?(3)).to eql(true)
+      expect([3, 3, 3, 3].my_all?(3)).to eql(true)
     end
     it 'The method returns flase if the pattern  does not matches every element' do
       expect([3, 3, 2, 3].all?(3)).to eql(false)
     end
     it 'When Regex is given,the method returns true if the pattern matches every element' do
-      expect(%w[ant bear cat].all?(/a/)).to eql(true)
+      expect(%w[ant bear cat].my_all?(/a/)).to eql(true)
     end
     it 'When Regex is given,the method returns flase if the pattern does not matches every element' do
-      expect(%w[ant bear cat].all?(/t/)).to eql(false)
+      expect(%w[ant bear cat].my_all?(/t/)).to eql(false)
     end
     it 'When class is given,the method returns true if the pattern matches every element' do
-      expect([2, 4, 6, 7].all?(Numeric)).to eql(true)
+      expect([2, 4, 6, 7].my_all?(Numeric)).to eql(true)
     end
     it 'When Class is given,the method returns flase if the pattern does not matches every element' do
-      expect([2, 4, 6, 't'].all?(Numeric)).to eql(false)
+      expect([2, 4, 6, 't'].my_all?(Numeric)).to eql(false)
     end
   end
   describe '#my_any?' do
     it 'if block is not given return true  when at least one of the collection members is not false or nil.' do
-      expect([nil, true, 99].any?).to eql(true)
+      expect([nil, true, 99].my_any?).to eql(true)
     end
     it 'if block is not given return flase  when all of the collection members is false or nil.' do
-      expect([nil, nil, false].any?).to eql(false)
+      expect([nil, nil, false].my_any?).to eql(false)
+    end
+    it 'The method returns true if the block ever returns a value other than false or nil' do
+      expect(%w[ant bear cat].my_any? { |word| word.length >= 4 }).to eql(true)
+    end
+    it 'The method returns false if the block ever returns false or nil' do
+      expect(%w[ant bear cat].my_any? { |word| word.length >= 5 }).to eql(false)
+    end
+    it 'The method returns true if the pattern  matches at least one element' do
+      expect([3, 2, 4, 5].my_any?(3)).to eql(true)
+    end
+    it 'The method returns false if the pattern does not matche at least one element' do
+      expect([9, 2, 4, 5].my_any?(3)).to eql(false)
+    end
+    it 'When Regex is given,the method returns true if the pattern matches at least one element' do
+      expect(%w[nnt bekr cat].my_any?(/a/)).to eql(true)
+    end
+    it 'When class is given,the method returns true if the pattern matches at least one element' do
+      expect([2, '4', '6', 7].my_any?(Numeric)).to eql(true)
+    end
+    it 'When Regex is given,the method returns false if the pattern does not matche at least one element' do
+      expect(%w[nnt bekr cpt].my_any?(/a/)).to eql(false)
+    end
+    it 'When class is given,the method returns false if the pattern does not matche at least one element' do
+      expect(%w[2 4 6 7].my_any?(Numeric)).to eql(false)
     end
   end
 end
