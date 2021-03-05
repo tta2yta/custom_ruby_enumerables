@@ -191,5 +191,8 @@ describe Enumerable do
   every intances in the range starting from the inital' do
       expect((1..4).my_inject(6) { |sum, n| sum + n }).to eql(16)
     end
+    it 'If you specify a symbol instead, then each element in the collection will be passed to the named method of memo' do
+      expect((5..10).my_inject(:+) ).to eql(45)
   end
+end
 end
