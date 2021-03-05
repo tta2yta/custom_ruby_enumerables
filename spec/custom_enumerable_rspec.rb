@@ -189,5 +189,9 @@ describe Enumerable do
   every intances in the range' do
     expect((1..4).my_inject { |sum, n| sum + n }).to eql(10)
   end
+  it 'when a block is given with an intial it will return the total sum of the condition applied on
+    every intances in the range starting from the inital' do
+      expect((1..4).my_inject(6) { |sum, n| sum + n }).to eql(16)
+  end
 end
 end
