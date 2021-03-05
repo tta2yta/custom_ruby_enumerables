@@ -120,11 +120,36 @@ describe Enumerable do
     end
   end
   describe '#my_none?' do
-  it 'If the block is not given, my_none? will return true only if none of the collection members is true.' do
-    expect(%w{ant bear cat}.my_none? { |word| word.length == 5 }).to eql(true)
+    it 'If the block is not given, my_none? will return true only if none of the collection members is true.' do
+      expect(%w[ant bear cat].my_none? { |word| word.length == 5 }).to eql(true)
+    end
+    it 'If the block is not given, my_none? will return false only
+     if at least one of the collection members is true.' do
+      expect(%w[ant bear cat].my_none? { |word| word.length == 4 }).to eql(false)
+    end
+    it 'The method returns true if the block never returns true for all elements' do
+      expect(%w[ant bear cat].my_none? { |word| word.length == 5 }).to eql(true)
+    end
+    it 'The method returns false if the block ever returns true' do
+      expect(%w[ant bear cat].my_none? { |word| word.length == 4 }).to eql(false)
+    end
+    it 'The method returns true if the pattern never returns true for all elements' do
+      expect([13, 2, 4, 5].my_none?(3)).to eql(true)
+    end
+    it 'The method returns false if the pattern ever returns true' do
+      expect([3, 2, 4, 5].my_none?(3)).to eql(false)
+    end
+    it 'When regex is gievn, The method returns true if the pattern never returns true for all elements' do
+      expect(%w[nnt bekr ctt].my_none?(/a/)).to eql(true)
+    end
+    it 'When regex is gievn, The method returns false if the pattern ever returns true' do
+      expect(%w[nnt bekr cat].my_none?(/a/)).to eql(false)
+    end
+    it 'When Class is gievn, The method returns true if the pattern never returns true for all elements' do
+      expect(%w[2 4 6 7].my_any?(String)).to eql(true)
+    end
+    it 'When Class is gievn, The method returns false if the pattern ever returns true' do
+      expect(%w[2 4 6 7].my_any?(Numeric)).to eql(false)
+    end
   end
-  it 'If the block is not given, my_none? will return false only if at least one of the collection members is true.' do
-    expect(%w{ant bear cat}.my_none? { |word| word.length == 4 }).to eql(false)
-  end
-end
 end
