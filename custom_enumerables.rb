@@ -38,23 +38,23 @@ module Enumerable
   end
 
   # custom enumerable method that resembles built-in select enumerable
-  def my_select(&block)
+  def my_select()
     return enum_for(:my_select) unless block_given?
 
     result = []
     my_each do |x|
-      result << x if block.call(x)
+      result << x if yield(x)
     end
     result
   end
 
-  def my_all?(args = nil, &block)
+  def my_all?(args = nil)
     res = true
 
     if args.nil?
       my_each do |elem|
         if block_given?
-          if block.call(elem) == false
+          if yield(elem) == false
             res = false
             break
           end
