@@ -120,7 +120,8 @@ describe Enumerable do
     end
   end
   describe '#my_none?' do
-    it 'If the block is not given, my_none? will return true only if none of the collection members is true.' do
+    it 'If the block is not given, my_none? will return true
+        only if none of the collection members is true.' do
       expect(%w[ant bear cat].my_none? { |word| word.length == 5 }).to eql(true)
     end
     it 'If the block is not given, my_none? will return false only
@@ -191,8 +192,9 @@ describe Enumerable do
   every intances in the range starting from the inital' do
       expect((1..4).my_inject(6) { |sum, n| sum + n }).to eql(16)
     end
-    it 'If you specify a symbol instead, then each element in the collection will be passed to the named method of memo' do
-      expect((5..10).my_inject(:+) ).to eql(45)
+    it 'If you specify a symbol instead, then each element in the collection will
+        be passed to the named method of memo' do
+      expect((5..10).my_inject(:+)).to eql(45)
+    end
   end
-end
 end
