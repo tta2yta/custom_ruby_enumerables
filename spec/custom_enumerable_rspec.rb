@@ -174,5 +174,9 @@ describe Enumerable do
     it 'iterates over a given range and returns a new array with instances that meet the condition' do
       expect(ran.my_map { |i| i * 1 }).to eql([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     end
+    it 'iterates over a given array and returns a new array according to the proc condition' do
+      factor = proc { |n| n * 2 }
+      expect([3, 2, 1].my_map(&factor)).to eql([6, 4, 2])
+    end
   end
 end
