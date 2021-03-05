@@ -26,6 +26,9 @@ puts "\n my_select"
 p(num.my_select { |x| x > 3 })
 p([1, 2, 3, 4, 5].my_select(&:even?)) #=> [2, 4]
 p(%i[foo bar].my_select { |x| x == :foo }) #=> [:foo]
+person={ 'name'=> 'AAA', 'age'=> 30, 'gender'=> 'male' }
+
+puts person.select{|x, y| x=='age'}
 
 # calling my_all enumerable
 puts "\n my_all"

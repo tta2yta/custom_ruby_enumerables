@@ -4,7 +4,7 @@ require './custom_enumerables.rb'
 describe Enumerable do
   let(:arr) { [3, 5, 7, 2, 1] }
   let(:ran) { (1..10) }
-  let(:person) { { 'name': 'AAA', 'age': 30, 'gender': 'male' } }
+  let(:person) { { 'name'=> 'AAA', 'age'=> 30, 'gender'=> 'male' } }
   let(:hash) { {} }
 
   describe '#my_each' do
@@ -47,7 +47,12 @@ describe Enumerable do
   end
 
   it 'Returns an array containing all elements of enum for which the given block returns a true value' do
-    expect(arr.my_select { |x| x > 3 }).to eql([5, 7])
+    expect(arr.my_select { |x| x > 3 }).to eql([5,7])
+  end
+
+  it 'returns the original hash once it is done with the block' do
+    expected={"gender"=>"male"}
+    expect(person.my_select { |key, val| key == 'gender' }).to eql([["gender", "male"]])
   end
 end
 end
