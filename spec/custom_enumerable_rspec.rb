@@ -164,4 +164,9 @@ describe Enumerable do
       expect(ary.my_count(&:even?)).to eql(3)
     end
   end
+  describe '#my_map' do
+    it 'return enum if block is not given' do
+      expect([1, 2, 3, 4].my_map.instance_of?(Enumerator)).to be true
+    end
+  end
 end
