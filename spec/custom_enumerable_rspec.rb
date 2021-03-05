@@ -178,10 +178,8 @@ describe Enumerable do
       factor = proc { |n| n * 2 }
       expect([3, 2, 1].my_map(&factor)).to eql([6, 4, 2])
     end
-    it 'iterates over a given hash and return a new hash with instances that meet the condition' do
-      puts person.my_map  {|key, value| key == 'gender'}
-      expect(person.my_map  {|key, value| key == 'gender'}).to eql('')
-      
+    it 'iterates over a given hash and return a new hash ' do
+      expect(person.my_map { |key, value| [key, value] }.to_h).to eql(person)
     end
   end
 end
