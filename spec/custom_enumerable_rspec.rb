@@ -168,5 +168,8 @@ describe Enumerable do
     it 'return enum if block is not given' do
       expect([1, 2, 3, 4].my_map.instance_of?(Enumerator)).to be true
     end
+    it 'iterates over a given array and returns a new array with instances that meet the condition' do
+      expect(arr.my_map { |i| i * i }).to eql([9, 25, 49, 4, 1])
+    end
   end
 end
